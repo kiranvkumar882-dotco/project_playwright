@@ -1,0 +1,3 @@
+Total is visible
+Total = 650
+Order success
