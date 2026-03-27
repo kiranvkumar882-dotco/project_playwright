@@ -6,8 +6,9 @@ class Logout{
     }
 
     async loggingOut(){
-        
-        await this.logoutButton.click()
+
+        await this.logoutButton.waitFor({ state: 'visible' });
+        await this.logoutButton.click();
     }
 }
 module.exports=Logout;

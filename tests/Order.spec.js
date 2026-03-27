@@ -47,7 +47,7 @@ test('Place Order: Phone',async({page})=>{
 
 })
 
-test.only('Place Order: Monitor',async({page})=>{
+test('Place Order: Monitor',async({page})=>{
 
     const myLogin1= new LoginPOM(page)
     const addMonitor= new ATCPOM(page)
@@ -76,10 +76,15 @@ test.only('Place Order: Monitor',async({page})=>{
     
 })
 
-test.afterEach('Logout',async({page})=>{
+test.only('Logout',async({page})=>{
+    
+    const vin=new LoginPOM(page)
+    vin.validLogin()
+    await page.pause()
+    await expect(page.locator('xpath=//a[@id="logout2"]')).toBeVisible()
     const out=new Logout(page)
     out.loggingOut()
-    await expect(page.locator('xpath=//a[@id="login2"]')).toBeVisible()
+    
 })
 
 
