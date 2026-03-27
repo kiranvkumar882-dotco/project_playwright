@@ -76,7 +76,7 @@ test('Place Order: Monitor',async({page})=>{
     
 })
 
-test.only('Logout',async({page})=>{
+test('Logout',async({page})=>{
     
     const vin=new LoginPOM(page)
     vin.validLogin()
