@@ -8,9 +8,11 @@ class ATCPOM{
         this.newphone=page.locator('xpath=(//a[@class="hrefch"])[3]')
         this.addphone=page.locator('xpath=//a[@onclick="addToCart(3)"]')
         this.icon=page.locator('xpath=(//a[@class="nav-link"])[4]')
-        this.monitorTab=page.locator('xpath=(//a[@class="list-group-item"])[4]')
-        this.appleMonitor=page.locator('xpath=(//a[@class="hrefch"])[1]')
-        this.addToCartMonitor=page.locator('xpath=(//a[@class="btn btn-success btn-lg"])[1]')
+
+        this.monitorTab=page.locator('xpath=(//a[@id="itemc"])[3]')
+        this.appleMonitor=page.locator('xpath=(//a[@href="prod.html?idp_=10"])[2]')
+        this.addToCartMonitor=page.locator('xpath=(//a[@href="#"])[7]')
+
         
 
 
@@ -35,12 +37,17 @@ class ATCPOM{
 
         await this.page.pause()
         await this.monitorTab.click()
-        await this.page.pause()
+
+    }
+
+    async purchaseMonitor(){
         await this.appleMonitor.click()
         await this.page.pause()
         await this.addToCartMonitor.click()
         await this.page.pause()
         await this.icon.click()
+        return new ShowCart(this.page)
+        
     }
 }
 module.exports=ATCPOM;

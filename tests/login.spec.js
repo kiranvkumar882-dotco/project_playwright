@@ -6,9 +6,10 @@ test.beforeEach('URL',async({page})=>{
     await page.goto('https://demoblaze.com/')
 })
 
-test.only('Valid Credentials',async({page})=>{
+test('Valid Credentials',async({page})=>{
     const cred=new LoginPOM(page)
     cred.validLogin()
+    await expect(page.locator('xpath=//a[@id="nameofuser"]')).toBeVisible()
 })
 
 

@@ -21,8 +21,10 @@ test('Sign in ',async({page})=>{
 })
 
 test('Closing the signin box',async({page})=>{
+    
     const signClose=new POMSignin(page)
     await signClose.close()
+    await expect(page.locator('xpath=//a[@id="signin2"]')).toBeVisible()
 })
 
 

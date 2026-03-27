@@ -4,6 +4,7 @@ const ATCPOM=require('../pages/ATCPOM')
 const CheckoutPOM=require('../pages/CheckoutPOM')
 const ShowCart=require('../pages/ShowCart')
 const SuccessPOM=require('../pages/SuccessPOM')
+const Logout=require('../pages/Logout')
 
 test.beforeEach('Order Items',async({page})=>{
 
@@ -12,10 +13,10 @@ test.beforeEach('Order Items',async({page})=>{
 
 })
 
- test.afterEach('Logout',async({page})=>{
-    const LogoutButton=page.locator('xpath=//a[@onclick="logOut()"]')
-    await LogoutButton.click()
-})
+//  test.afterEach('Logout',async({page})=>{
+//     const LogoutButton=page.locator('xpath=//a[@onclick="logOut()"]')
+//     await LogoutButton.click()
+// })
 
 test('Place Order: Phone',async({page})=>{
     
@@ -39,10 +40,6 @@ test('Place Order: Phone',async({page})=>{
     await page.pause()
     cart.itemsVisible()
     await page.pause()
-    const totalAmount= await cart.amt.textContent() // to get total value
-    console.log('Total = '+ totalAmount)
-    await page.pause()
-    
     await expect(cart.items).toBeVisible()
     checkout.buy()
     await page.pause()
@@ -60,25 +57,29 @@ test.only('Place Order: Monitor',async({page})=>{
 
     myLogin1.validLogin()
     await page.pause()
+
+    await page.on('display',async(display)=>{
+        await expect(page.message()).toBe("Product added.")
+        display.accept()
+    })
+    
     addMonitor.buyMonitor()
     await page.pause()
+    addMonitor.purchaseMonitor()
+    await page.pause()
     newCart.itemsVisible()
-    await page.on('display',async(display)=>{
-
-        await expect(display.message()).toBe('Product added.')
-        display.accept()
-
-    })
-
+    await page.pause()
+   // await expect(newCart.items).toBeVisible()
     newCheckout.buy()
     await page.pause()
-    msgMonitor.Order()
-
-    // const totalAmountMonitor= await newCart.amt
-    // await expect(totalAmountMonitor).toBeVisible()
-    // to get total value
-    //console.log('Total = '+ totalAmountMonitor)
+    msgMonitor.Order()   
     
+})
+
+test.afterEach('Logout',async({page})=>{
+    const out=new Logout(page)
+    out.loggingOut()
+    await expect(page.locator('xpath=//a[@id="login2"]')).toBeVisible()
 })
 
 
