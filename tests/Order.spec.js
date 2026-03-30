@@ -13,10 +13,6 @@ test.beforeEach('Order Items',async({page})=>{
 
 })
 
-//  test.afterEach('Logout',async({page})=>{
-//     const LogoutButton=page.locator('xpath=//a[@onclick="logOut()"]')
-//     await LogoutButton.click()
-// })
 
 test('Place Order: Phone',async({page})=>{
     
@@ -69,7 +65,7 @@ test('Place Order: Monitor',async({page})=>{
     await page.pause()
     newCart.itemsVisible()
     await page.pause()
-   // await expect(newCart.items).toBeVisible()
+   await expect(newCart.items).toBeVisible()
     newCheckout.buy()
     await page.pause()
     msgMonitor.Order()   
