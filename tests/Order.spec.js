@@ -14,7 +14,7 @@ test.beforeEach('Order Items',async({page})=>{
 })
 
 
-test('Place Order: Phone',async({page})=>{
+test.only('Place Order: Phone',async({page})=>{
     
     const myLogin= new LoginPOM(page)
     const addItem= new ATCPOM(page)
@@ -32,14 +32,18 @@ test('Place Order: Phone',async({page})=>{
     })
 
     await page.pause()
-    addItem.buyPhone()
+    await addItem.buyPhone()
+
     await page.pause()
-    cart.itemsVisible()
+    await cart.itemsVisible()
+
     await page.pause()
     await expect(cart.items).toBeVisible()
-    checkout.buy()
+
+    await checkout.buy()
     await page.pause()
-    msg.Order()
+
+    await msg.Order()
 
 })
 
@@ -51,7 +55,7 @@ test('Place Order: Monitor',async({page})=>{
     const newCart=new ShowCart(page)
     const msgMonitor= new SuccessPOM(page)
 
-    myLogin1.validLogin()
+    await myLogin1.validLogin()
     await page.pause()
 
     await page.on('display',async(display)=>{
@@ -59,27 +63,33 @@ test('Place Order: Monitor',async({page})=>{
         display.accept()
     })
     
-    addMonitor.buyMonitor()
+    await addMonitor.buyMonitor()
     await page.pause()
-    addMonitor.purchaseMonitor()
+
+    await addMonitor.purchaseMonitor()
     await page.pause()
-    newCart.itemsVisible()
+
+    await newCart.itemsVisible()
     await page.pause()
-   await expect(newCart.items).toBeVisible()
-    newCheckout.buy()
+
+    await expect(newCart.items).toBeVisible()
+    await newCheckout.buy()
+
     await page.pause()
-    msgMonitor.Order()   
+    await msgMonitor.Order()   
     
 })
 
 test('Logout',async({page})=>{
     
     const vin=new LoginPOM(page)
-    vin.validLogin()
+    await vin.validLogin()
+
     await page.pause()
     await expect(page.locator('xpath=//a[@id="logout2"]')).toBeVisible()
+    
     const out=new Logout(page)
-    out.loggingOut()
+    await out.loggingOut()
     
 })
 

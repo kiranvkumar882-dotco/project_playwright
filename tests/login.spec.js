@@ -8,7 +8,7 @@ test.beforeEach('URL',async({page})=>{
 
 test('Valid Credentials',async({page})=>{
     const cred=new LoginPOM(page)
-    cred.validLogin()
+    await cred.validLogin()
     await expect(page.locator('xpath=//a[@id="nameofuser"]')).toBeVisible()
 })
 
@@ -19,7 +19,7 @@ test(`Invalid credentials for ${data.username},${data.password}`,async({page})=>
 
     const login=new LoginPOM(page)
     await login.invalidLogin(data.username,data.password)
-    page.on('dialog',async(dialog)=>{
+    await page.on('dialog',async(dialog)=>{
     await dialog.accept()
     })
     await expect(page).toHaveURL('https://demoblaze.com/')
