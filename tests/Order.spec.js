@@ -14,7 +14,7 @@ test.beforeEach('Order Items',async({page})=>{
 })
 
 
-test.only('Place Order: Phone',async({page})=>{
+test('Place Order: Phone',async({page})=>{
     
     const myLogin= new LoginPOM(page)
     const addItem= new ATCPOM(page)
