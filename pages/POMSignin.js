@@ -1,8 +1,9 @@
+const { expect } = require("allure-playwright")
 const { register } = require("node:module")
 
 class POMSignin{
 
-constructor(page){{
+constructor(page){{ //PAGE FACTORY DESIGN - TO AVOID DUPLICATE LOCATORS
     this.page=page
     this.link=this.page.locator('xpath=//a[@id="signin2"]')
     this.username=page.locator('#sign-username')
@@ -14,6 +15,11 @@ constructor(page){{
 
 
 }}
+
+async signinLink(){
+    await expect(this.page.link).toBeVisible()
+    return this
+}
 
 async signingIn(){
     
