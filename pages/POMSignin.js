@@ -10,14 +10,14 @@ constructor(page){{ //PAGE FACTORY DESIGN - TO AVOID DUPLICATE LOCATORS
     this.password=page.locator('#sign-password')
     this.registerButton=page.locator('xpath=//button[@onclick="register()"]')
     this.page=page
-    this.link=page.locator('xpath=//a[@id="signin2"]')
+    this.link=page.locator('#signin2')
     this.closeButton=page.locator('xpath=(//button[@data-dismiss="modal"])[4]')
 
 
 }}
 
 async signinLink(){
-    await expect(this.page.link).toBeVisible()
+    await expect(this.link).toBeVisible()
     return this
 }
 
